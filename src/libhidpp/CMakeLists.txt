@@ -48,6 +48,7 @@ set(LIBHIDPP_SOURCES
 	hidpp20/IRoot.cpp
 	hidpp20/FeatureInterface.cpp
 	hidpp20/IFeatureSet.cpp
+	hidpp20/IDeviceTypeName.cpp
 	hidpp20/IOnboardProfiles.cpp
 	hidpp20/IAdjustableDPI.cpp
 	hidpp20/IReprogControlsV4.cpp

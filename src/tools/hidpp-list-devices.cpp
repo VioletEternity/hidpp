@@ -25,6 +25,7 @@
 #include <hidpp/Device.h>
 #include <hidpp10/Error.h>
 #include <hidpp20/Error.h>
+#include <hidpp20/IDeviceTypeName.h>
 
 #include "common/common.h"
 #include "common/Option.h"
@@ -56,8 +57,14 @@ protected:
 					printf ("%s", path);
 					if (index != HIDPP::DefaultDevice)
 						printf (" (device %d)", index);
+					std::string name = dev.name ();
+					if (std::get<0> (version) >= 2) {
+						HIDPP20::Device dev (&dispatcher, index);
+						HIDPP20::IDeviceTypeName idevicetypename (&dev);
+						name = idevicetypename.getDeviceName ();
+					}
 					printf (": %s (%04hx:%04hx) HID++ %d.%d\n",
-							dev.name ().c_str (),
+							name.c_str (),
 							dispatcher.hidraw ().vendorID (), dev.productID (),
 							std::get<0> (version), std::get<1> (version));
 					if (index == HIDPP::DefaultDevice && version == std::make_tuple (1, 0))
